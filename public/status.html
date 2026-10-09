@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Booking Status</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <a href="/index.html" class="site-brand">
+        <span>School IT Helpdesk</span>
+        <span class="brand-badge">Repair Shop</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/index.html" class="nav-link">Services</a>
+        <a href="/book.html" class="nav-link">Book Repair</a>
+        <a href="/status.html" class="nav-link active">Check Status</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="toast-banner" class="toast-banner"></div>
+
+    <div class="form-card">
+      <h1 class="page-title">Check Booking Status</h1>
+      <p class="page-subtitle">Enter your reference code (e.g. BKXXXXXX) to review your appointment.</p>
+
+      <form id="status-form" novalidate>
+        <div class="form-group">
+          <label for="reference" class="form-label">Reference Number *</label>
+          <input type="text" id="reference" class="form-input" placeholder="e.g. BKA1B2C3" style="text-transform: uppercase;">
+          <div id="reference-error" class="form-error"></div>
+        </div>
+
+        <button type="submit" id="search-btn" class="btn btn-primary" style="width: 100%;">Check Status</button>
+      </form>
+
+      <div id="status-result"></div>
+    </div>
+  </main>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

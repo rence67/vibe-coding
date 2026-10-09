@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - IT Helpdesk Repair Shop</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md) var(--spacing-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-title {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .summary-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: var(--spacing-xs);
+    }
+
+    .controls-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-group {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .filter-group {
+      width: 200px;
+    }
+
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .data-table th, .data-table td {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .data-table th {
+      background-color: #f1f5f9;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    .action-group {
+      display: flex;
+      gap: var(--spacing-xs);
+    }
+
+    .btn-xs {
+      min-height: 32px;
+      padding: 0 var(--spacing-sm);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .filter-group {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <a href="/admin/dashboard.html" class="site-brand">
+        <span>School IT Helpdesk</span>
+        <span class="brand-badge">Admin Dashboard</span>
+      </a>
+      <nav class="nav-links">
+        <button id="logout-btn" class="btn btn-secondary btn-xs">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="toast-banner" class="toast-banner"></div>
+
+    <div class="dashboard-header">
+      <div>
+        <h1 class="page-title">Bookings Management</h1>
+        <p class="page-subtitle">Review, confirm, cancel, and purge customer appointments.</p>
+      </div>
+    </div>
+
+    <!-- Summary Metrics -->
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-title">Total Bookings</div>
+        <div id="stat-total" class="summary-value">0</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-title">Pending Confirmation</div>
+        <div id="stat-pending" class="summary-value" style="color: #d97706;">0</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-title">Confirmed</div>
+        <div id="stat-confirmed" class="summary-value" style="color: #059669;">0</div>
+      </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="controls-card">
+      <div class="search-group">
+        <input type="text" id="search-input" class="form-input" placeholder="Search by reference, name, contact, or service...">
+      </div>
+      <div class="filter-group">
+        <select id="status-filter" class="form-select">
+          <option value="all">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Bookings Table -->
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Reference</th>
+            <th>Service</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Date & Time</th>
+            <th>Guests</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bookings-table-body">
+          <tr>
+            <td colspan="8" class="loading-state">Loading bookings data...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

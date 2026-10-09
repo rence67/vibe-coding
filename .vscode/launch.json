@@ -1,0 +1,12 @@
+{
+    
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Open dashboard.html",
+            "file": "c:\\vibe coding\\public\\admin\\dashboard.html"
+        }
+    ]
+}
